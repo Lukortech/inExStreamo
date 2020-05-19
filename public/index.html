@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+  </head>
+  <body>
+    <h1>Welcome to fancy gradient generator</h1>
+
+    <form onsubmit="void(0);">
+      <label>
+        Chose your main color:
+        <input type="color" id="color-picker" />
+      </label>
+      <br />
+      <label>
+        Or type your main color hex:
+        <input type="text" id="color-input" />
+      </label>
+    </form>
+    <br />
+    <button type="submit" id="submit-button">
+      Change background!
+    </button>
+
+    <script>
+      const picker = document.querySelector("#color-picker");
+      const input = document.querySelector("#color-input");
+      const submit = document.querySelector("submit-button");
+
+      picker.addEventListener("input", (e) => {
+        input.value = e.target.value;
+      });
+      input.addEventListener("input", (e) => {
+        picker.value = e.target.value;
+      });
+      submit.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log(e.target.value);
+      });
+    </script>
+  </body>
+</html>

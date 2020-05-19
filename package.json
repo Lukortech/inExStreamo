@@ -1,0 +1,17 @@
+{
+  "name": "websocketies",
+  "version": "1.0.0",
+  "description": "> Widok, w którym mamy do wyboru kolor (wprowadzenie w text inpucie wystarczy, ale input type color też jest spoko) z przyciskiem submit (bez przeładowania strony), który wysyła zmianę do WebSocketa. > Widok, w którym łączymy się do WebSocketu z pierwszego widoku i reaguje na zmianę koloru i zmienia background body.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "ws": "^7.3.0"
+  }
+}
