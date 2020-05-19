@@ -24,68 +24,37 @@ wss.on("connection", (ws) => {
   ws.send("We're waiting for your color code!");
 });
 
-// const wss = new WebSocket.Server({
-//   port: 8080,
-//   perMessageDeflate: {
-//     zlibDeflateOptions: {
-//       chunkSize: 1024,
-//       memLevel: 7,
-//       level: 3,
-//     },
-//     zlibInflateOptions: {
-//       chunkSize: 10 * 1024,
-//     },
-//     clientNoContextTakeover: true, // Defaults to negotiated value.
-//     serverNoContextTakeover: true, // Defaults to negotiated value.
-//     serverMaxWindowBits: 10, // Defaults to negotiated value.
-//   },
-// });
+app.get("/colors/:color", (req, res, next) => {
+  const options = {
+    root: path.join(__dirname, "public"),
+    dotfiles: "deny",
+    headers: {
+      "x-timestamp": Date.now(),
+      "x-sent": true,
+    },
+  };
 
-// wss.on("connection", (ws) => {
-//   ws.on("message", (message) => {
-//     console.log("received: %s", message);
-//   });
+  const colorName = req.params.color;
+  res.sendFile("colors.html", options, (err) => {
+    if (err) next(err);
+    console.log("Sent:", colorName);
+  });
+});
 
-//   ws.send("something");
-// });
+app.get("/", (req, res, next) => {
+  const options = {
+    root: path.join(__dirname, "public"),
+    dotfiles: "deny",
+    headers: {
+      "x-timestamp": Date.now(),
+      "x-sent": true,
+    },
+  };
 
-{
-  /* 
-=====================================
-*/
-}
-
-// app.get("/colors/:color", (req, res, next) => {
-//   const options = {
-//     root: path.join(__dirname, "public"),
-//     dotfiles: "deny",
-//     headers: {
-//       "x-timestamp": Date.now(),
-//       "x-sent": true,
-//     },
-//   };
-
-//   const colorName = req.params.color;
-//   res.sendFile("colors.html", options, (err) => {
-//     if (err) next(err);
-//     console.log("Sent:", colorName);
-//   });
-// });
-
-// app.get("/", (req, res, next) => {
-//   const options = {
-//     root: path.join(__dirname, "public"),
-//     dotfiles: "deny",
-//     headers: {
-//       "x-timestamp": Date.now(),
-//       "x-sent": true,
-//     },
-//   };
-
-//   res.sendFile("index.html", options, (err) => {
-//     if (err) next(err);
-//   });
-// });
+  res.sendFile("index.html", options, (err) => {
+    if (err) next(err);
+  });
+});
 
 // app.listen(port, () =>
 //   console.log(`Example app listening at http://localhost:${port}`)
