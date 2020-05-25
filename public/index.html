@@ -23,80 +23,14 @@
     <p class="colorGenerator">
       Chose your main color or type your main color hex:
     </p>
-    <input type="color" value="#FFFFFF" name="color" id="color-picker" />
+    <input type="color" value="#FFFFFF" name="newColor" id="color-picker" />
     <br />
     <input type="text" value="#FFFFFF" id="color-input" />
     <input type="submit" id="submit-input" value="Change background!"></input>
   </form>
-  <br />
-
+  <script src="/scripts/index.js"></script>
   <script>
-    const picker = document.querySelector("#color-picker");
-    const input = document.querySelector("#color-input");
-
-    const inputMethods = [picker, input]
-
-    const submit = document.querySelector("submit-button");
-    const colorForm = document.querySelector("#color-form");
-
-    // Color manipulation thanks to: https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
-
-    function invertColor(hex) {
-      if (hex.indexOf('#') === 0) {
-        hex = hex.slice(1);
-      }
-      // convert 3-digit hex to 6-digits.
-      if (hex.length === 3) {
-        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-      }
-      if (hex.length !== 6) {
-        throw new Error('Invalid HEX color.');
-      }
-      // invert color components
-      var r = (255 - parseInt(hex.slice(0, 2), 16)).toString(16),
-        g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
-        b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
-      // pad each with zeros and return
-      return '#' + padZero(r) + padZero(g) + padZero(b) + "80";
-    }
-
-    function padZero(str, len) {
-      len = len || 2;
-      var zeros = new Array(len).join('0');
-      return (zeros + str).slice(-len);
-    }
-
-    const changeButtonColors = (color) => {
-      window.document.body.style.setProperty("--buttonColor", color)
-      window.document.body.style.setProperty("--buttonBGColor", invertColor(color))
-    }
-
-    inputMethods.map(method=>{
-      method.addEventListener("input", (e) => {
-        input.value = e.target.value;
-        changeButtonColors(e.target.value);
-      })
-    });
-
-    var getCookie = (name) => {
-      var value = "; " + document.cookie;
-      var parts = value.split("; " + name + "=");
-      if (parts.length == 2) return parts.pop().split(";").shift();
-    };
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      let data = Object.fromEntries(new FormData(colorForm).entries());
-      let prevColor = getCookie("prevColor");
-      if(prevColor !== data.color){
-        document.cookie = `prevColor=${data.color}`;
-        alert(`You've chosen ${data.color} as your new background color.`)
-      }else{
-        alert(`The color ${data.color} is already your background color.`)
-      }
-    }
-
-    colorForm.addEventListener("submit", handleSubmit);
+    
   </script>
 </body>
 

@@ -7,5 +7,11 @@
   </head>
   <body>
     Hello! Here's some random gradient with the color you've picked.
+    <script>
+      webSocket = new WebSocket("ws://localhost:3000/");
+      webSocket.onmessage = (e) => {
+        console.log(e.data);
+      };
+    </script>
   </body>
 </html>
