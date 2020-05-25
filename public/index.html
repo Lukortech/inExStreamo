@@ -1,69 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main Page</title>
-    <style>
-      form {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: repeat(2, 1.4em);
-      }
-      form input {
-        width: 100%;
-        height: 100%;
-      }
-      input[type="color"],
-      #color-input {
-        -webkit-appearance: none;
-        grid-row: 2/2;
-        grid-column: 1/2;
-        display: grid;
-        padding: 0;
-      }
-      #color-input {
-        width: 80%;
-      }
-      .colorGenerator {
-        display: grid;
-        grid-row: 1/1;
-        grid-column: 1/12;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Welcome to fancy gradient generator</h1>
 
-    <form id="color-form">
-      <label class="colorGenerator">
-        Chose your main color or type your main color hex:
-      </label>
-      <input type="color" value="#FFFFFF" name="color" id="color-picker" />
-      <br />
-      <input type="text" value="#FFFFFF" name="color" id="color-input" />
-    </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coolor.ly - 🌈 the best background generator platform .</title>
+  <!-- Thanks to: https://realfavicongenerator.net/-->
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#d05bd5">
+  <meta name="msapplication-TileColor" content="#9f00a7">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/styles/basic.css">
+</head>
+
+<body>
+  <h1>Welcome to fancy bg generator!</h1>
+
+  <form id="color-form">
+    <p class="colorGenerator">
+      Chose your main color or type your main color hex:
+    </p>
+    <input type="color" value="#FFFFFF" name="color" id="color-picker" />
     <br />
-    <button type="submit" id="submit-button">
-      Change background!
-    </button>
+    <input type="text" value="#FFFFFF" id="color-input" />
+    <input type="submit" id="submit-input" value="Change background!"></input>
+  </form>
+  <br />
 
-    <script>
-      const picker = document.querySelector("#color-picker");
-      const input = document.querySelector("#color-input");
-      const submit = document.querySelector("submit-button");
-      const colorForm = document.querySelector("#color-form");
+  <script>
+    const picker = document.querySelector("#color-picker");
+    const input = document.querySelector("#color-input");
 
-      picker.addEventListener("input", (e) => {
+    const inputMethods = [picker, input]
+
+    const submit = document.querySelector("submit-button");
+    const colorForm = document.querySelector("#color-form");
+
+    // Color manipulation thanks to: https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
+
+    function invertColor(hex) {
+      if (hex.indexOf('#') === 0) {
+        hex = hex.slice(1);
+      }
+      // convert 3-digit hex to 6-digits.
+      if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      }
+      if (hex.length !== 6) {
+        throw new Error('Invalid HEX color.');
+      }
+      // invert color components
+      var r = (255 - parseInt(hex.slice(0, 2), 16)).toString(16),
+        g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
+        b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
+      // pad each with zeros and return
+      return '#' + padZero(r) + padZero(g) + padZero(b) + "80";
+    }
+
+    function padZero(str, len) {
+      len = len || 2;
+      var zeros = new Array(len).join('0');
+      return (zeros + str).slice(-len);
+    }
+
+    const changeButtonColors = (color) => {
+      window.document.body.style.setProperty("--buttonColor", color)
+      window.document.body.style.setProperty("--buttonBGColor", invertColor(color))
+    }
+
+    inputMethods.map(method=>{
+      method.addEventListener("input", (e) => {
         input.value = e.target.value;
-      });
-      input.addEventListener("input", (e) => {
-        picker.value = e.target.value;
-      });
-      colorForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        console.log(e.target.value);
-      });
-    </script>
-  </body>
+        changeButtonColors(e.target.value);
+      })
+    });
+
+    var getCookie = (name) => {
+      var value = "; " + document.cookie;
+      var parts = value.split("; " + name + "=");
+      if (parts.length == 2) return parts.pop().split(";").shift();
+    };
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      let data = Object.fromEntries(new FormData(colorForm).entries());
+      let prevColor = getCookie("prevColor");
+      if(prevColor !== data.color){
+        document.cookie = `prevColor=${data.color}`;
+        alert(`You've chosen ${data.color} as your new background color.`)
+      }else{
+        alert(`The color ${data.color} is already your background color.`)
+      }
+    }
+
+    colorForm.addEventListener("submit", handleSubmit);
+  </script>
+</body>
+
 </html>
