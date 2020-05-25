@@ -10,6 +10,8 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+app.use(express.static("public"));
+
 wss.on("connection", (ws) => {
   ws.on("message", (msg) => {
     let strArr = msg.split(" ");

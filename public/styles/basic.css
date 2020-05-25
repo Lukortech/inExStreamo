@@ -1,0 +1,55 @@
+:root {
+  --buttonColor: #121212;
+  --buttonBGColor: rgba(255, 255, 255, 0.7);
+}
+
+body {
+  max-width: 1200px;
+  margin: 0px auto;
+  background-color: #121212;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 1.4em);
+}
+
+form input {
+  width: 100%;
+  height: 100%;
+}
+
+input[type="color"],
+#color-input {
+  -webkit-appearance: none;
+  grid-row: 3/3;
+  grid-column: 6/7;
+  display: grid;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#color-input {
+  width: 50%;
+  border: 1px solid var(--buttonColor);
+}
+
+.colorGenerator {
+  display: grid;
+  grid-row: 1/1;
+  grid-column: 4/9;
+  text-align: center;
+  margin: 0;
+}
+
+#submit-input {
+  display: grid;
+  grid-row: 4/5;
+  grid-column: 6/7;
+  border: 0;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--buttonColor);
+  color: var(--buttonColor);
+}
