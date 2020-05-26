@@ -2,7 +2,6 @@
 const colorForm = document.querySelector("#color-form");
 const picker = document.querySelector("#color-picker");
 const input = document.querySelector("#color-input");
-const inputMethods = [picker, input];
 const submit = document.querySelector("submit-button");
 
 // WebSocket related stuff
@@ -11,16 +10,11 @@ webSocket.onmessage = (e) => {
   console.log(e.data);
 };
 
+// Utils
+
 const changeButtonColors = (color) => {
   window.document.body.style.setProperty("--buttonColor", color);
 };
-
-inputMethods.map((method) => {
-  method.addEventListener("input", (e) => {
-    input.value = e.target.value;
-    changeButtonColors(e.target.value);
-  });
-});
 
 const getCookie = (name) => {
   var value = "; " + document.cookie;
@@ -41,5 +35,14 @@ const handleSubmit = (e) => {
     alert(`The color ${newColor} is already your background color.`);
   }
 };
+
+// eventListeners
+
+picker.addEventListener("input", (e) => {
+  let newVal = e.target.value;
+
+  input.value = newVal;
+  changeButtonColors(newVal);
+});
 
 colorForm.addEventListener("submit", handleSubmit);
