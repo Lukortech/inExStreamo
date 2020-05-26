@@ -1,10 +1,12 @@
 // Form elements
+
 const colorForm = document.querySelector("#color-form");
 const picker = document.querySelector("#color-picker");
 const input = document.querySelector("#color-input");
 const submit = document.querySelector("submit-button");
 
 // WebSocket related stuff
+
 webSocket = new WebSocket("ws://localhost:3000/");
 webSocket.onmessage = (e) => {
   console.log(e.data);
@@ -36,7 +38,15 @@ const handleSubmit = (e) => {
   }
 };
 
-// eventListeners
+// EventListeners
+
+window.onload = () => {
+  let prevColor = getCookie("prevColor");
+  picker.value = prevColor;
+  input.value = prevColor;
+  colorForm.classList.remove("d-none");
+  colorForm.classList.add("appearing");
+};
 
 picker.addEventListener("input", (e) => {
   let newVal = e.target.value;

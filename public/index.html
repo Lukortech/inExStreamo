@@ -32,13 +32,13 @@
     </nav>
   </div>
   <!-- content -->
-  <div class="row flex-column" style="padding-top:8em;">
+  <div class="row flex-column appearing" style="padding-top:8em;">
     <h2>Welcome to fancy bg generator!</h1></br>
     <p>Chose your main color or type your main color hex:</p>
-    <form id="color-form">
+    <form id="color-form" class="d-none color-input-form">
       <div class="input-group mb-3">
-        <input type="color" class="border rounded-left p-1" style="height: 2em;" value="#FFFFFF" name="newColor" id="color-picker" />
-        <input disabled type="text" class="border rounded-right" value="#FFFFFF" id="color-input" />
+        <input type="color" class="border rounded-left p-1" style="height: 2em;" name="newColor" id="color-picker" />
+        <input disabled type="text" class="border rounded-right" id="color-input" />
       </div>
       <input type="submit" id="submit-input" class="btn btn-outline-dark" value="Change background!"></input>
     </form>

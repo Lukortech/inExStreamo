@@ -18,3 +18,28 @@ input[type="color"]::-webkit-color-swatch {
 input[type="color"]:focus {
   outline-color: var(--buttonColor);
 }
+
+.color-input-form {
+  opacity: 0;
+}
+
+/* ANIMATIONS */
+
+@keyframes Appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.appearing {
+  animation: Appear 0.4s;
+  animation-fill-mode: forwards;
+}
+
+.disappearing {
+  animation: Appear 0.4s backwards;
+  animation-fill-mode: forwards;
+}

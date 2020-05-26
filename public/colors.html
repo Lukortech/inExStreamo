@@ -3,14 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Color picked :</title>
+    <title>Color picked:</title>
   </head>
   <body>
-    Hello! Here's some random gradient with the color you've picked.
+    Hello!
     <script>
       webSocket = new WebSocket("ws://localhost:3000/");
-      webSocket.onmessage = (e) => {
-        console.log(e.data);
+      // webSocket.onopen = () => {
+      //   webSocket.send("Hello, I am Lukor #FFFFFF")
+      // }
+      webSocket.onmessage = (message) => {
+        console.log(message.data);
       };
     </script>
   </body>
