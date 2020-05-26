@@ -45,6 +45,8 @@ app.get("/myBG", (req, res) => {
   res.render("Colors", { bgColor });
 }); // A way to show you that you could easily transfer to React if needed ;)
 
-server.listen(process.env.PORT || port, () => {
+const myAppServer = server.listen(process.env.PORT || port, () => {
   console.log(`Server started on port ${server.address().port} :)`);
 });
+
+module.exports = myAppServer;

@@ -4,16 +4,20 @@
   "description": "> Widok, w którym mamy do wyboru kolor (wprowadzenie w text inpucie wystarczy, ale input type color też jest spoko) z przyciskiem submit (bez przeładowania strony), który wysyła zmianę do WebSocketa. > Widok, w którym łączymy się do WebSocketu z pierwszego widoku i reaguje na zmianę koloru i zmienia background body.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "echo \"Have fun with the app!\" && node index.js"
+    "start": "echo \"Have fun with the app!\" && node index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "mocha": "^5.1.1"
+    "jest": "^26.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -22,7 +26,6 @@
     "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "supertest": "^4.0.2",
     "uuid": "^8.1.0",
     "ws": "^7.3.0"
   }
