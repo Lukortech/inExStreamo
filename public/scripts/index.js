@@ -28,11 +28,16 @@ const handleSubmit = (e) => {
   e.preventDefault();
   let { newColor } = Object.fromEntries(new FormData(e.target).entries());
   let prevColor = getCookie("prevColor");
+  if (prevColor) webSocket.send(prevColor);
 
   if (prevColor !== newColor) {
     document.cookie = `prevColor=${newColor}`;
     alert(`You've chosen ${newColor} as your new background color.`);
-    webSocket.send(newColor);
+    try {
+      webSocket.send(newColor);
+    } catch (e) {
+      console.error(e);
+    }
   } else {
     alert(`The color ${newColor} is already your background color.`);
   }
@@ -42,8 +47,11 @@ const handleSubmit = (e) => {
 
 window.onload = () => {
   let prevColor = getCookie("prevColor");
-  picker.value = prevColor;
-  input.value = prevColor;
+  if (prevColor) {
+    picker.value = prevColor;
+    input.value = prevColor;
+    if (prevColor) webSocket.send(prevColor);
+  }
   colorForm.classList.remove("d-none");
   colorForm.classList.add("appearing");
 };
