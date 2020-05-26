@@ -41,14 +41,7 @@ app.get("/", (req, res, next) => {
   });
 });
 
-app.get("/myBG", (req, res, next) => {
-  // res.send("colors.html", { ...options, data: bgColor });
-  //   res.sendFile("colors.html", options, (err) => {
-  //     if (err) next(err);
-  //   });
-});
-
-app.get("/home", (req, res) => {
+app.get("/myBG", (req, res) => {
   res.render("Colors", { bgColor });
 }); // A way to show you that you could easily transfer to React if needed ;)
 
